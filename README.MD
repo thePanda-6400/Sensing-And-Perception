@@ -1,24 +1,88 @@
-THIS IS A README FILE FOR THE SENSING AND PERCEPTION COURSEWORK 
+3D Reconstruction and Grasping using Computer Vision and Robotics
+Overview
 
-EXECUTING 3D RECONSTRUCTION CODE
+This project explores 3D object reconstruction using computer vision and the implementation of a grasping algorithm for robotic manipulation. The project involves capturing object images, generating a 3D model, and enabling a robot to pick and place the reconstructed object using ROS, MoveIt!, and Gazebo.
+Author
 
-The code is saved as final.py and a jupyter notebook with the same code has also been provided depending on the user's preference
-The images used in the 3d reconstruction have been provided with the camera matrix provided in the code but if new images are to be used follow the steps given below 
+Dhruv Pandit
+K23118144
+Key Objectives
 
-First save the images whose 3d reconstruction is to be done in the same folder as the python script as a jpeg with the labels imgxx where xx ranges from 01 to the final number of images taken in the double digits. 
+    3D Reconstruction of an object using image processing techniques.
 
-Add the path of the images to the code in line 6 of the script
-The camera matrix used is defined on line 22. While images used for the reconstruction have been provided, if the code is being run on new set of images, the camera matrix for the camera matrix should be used in this location
+    Camera Calibration for accurate depth estimation.
 
-EXECUTING GRASPING
-The simulation was carried out using ROS1 Noetic on an Ubuntu 20.04 system
-Follow the instructions on  http://wiki.ros.org/noetic/Installation/Ubuntu to install the system 
-install MoveIt using the instructions in https://moveit.github.io/moveit_tutorials/doc/getting_started/getting_started.html
+    Feature Detection & Matching for generating a point cloud.
 
-Open the two terminals, 
+    Implementation of a Grasping Algorithm to manipulate objects using a robotic arm.
 
-in the first one enter the following to launch the simulator with the Panda Robot
-roslaunch panda_moveit_config demo.launch
+Technologies & Tools Used
 
-In the second terminal enter the following command to launch the pick and place programme
-rosrun moveit_tutorials pick_place_tutorial
+    Computer Vision: OpenCV, Open3D
+
+    Feature Detection: SIFT (Scale-Invariant Feature Transform)
+
+    3D Reconstruction: Point Cloud Processing, STL Model Export
+
+    Robot Simulation: ROS, MoveIt!, Gazebo, RViz
+
+    Hardware: Panda Robot
+
+Methodology
+1. Image Capture
+
+    Images were captured using a smartphone camera.
+
+    A checkerboard pattern was used for camera calibration.
+
+    Object images were taken under different angles to ensure better reconstruction.
+
+2. Camera Calibration
+
+    Intrinsic parameters such as focal length and principal points were obtained.
+
+    Extrinsic parameters helped determine the camera’s position in the 3D space.
+
+    Used OpenCV’s findChessboardCorners() for calibration.
+
+3. 3D Reconstruction
+
+    Feature Extraction: SIFT algorithm detects keypoints from captured images.
+
+    Feature Matching:
+
+        Brute Force Matcher & K-Nearest Neighbors (KNN) were used for matching keypoints.
+
+        RANSAC filtering was applied to remove incorrect matches.
+
+    Point Cloud & Dense Reconstruction:
+
+        Open3D was used to generate a point cloud and dense 3D model.
+
+        The final mesh was exported in STL format for simulation in Gazebo.
+
+4. Grasping Algorithm
+
+    The Panda Robot was used for object manipulation.
+
+    MoveIt!’s pick-and-place function was integrated for grasping tasks.
+
+    The STL model was imported into RViz for visualization.
+
+    Due to simulation constraints, a random object was used instead of the actual STL model.
+
+Challenges & Improvements
+
+    Smartphone camera filters distorted images → Future work could use RAW images for better accuracy.
+
+    Cluttered background caused incorrect feature detection → Used plain backgrounds to improve object recognition.
+
+    Importing STL into RViz was problematic → Used a placeholder object for grasping tests.
+
+Future Work
+
+    Implement real-world grasping instead of simulation.
+
+    Improve image preprocessing to remove noise and enhance feature extraction.
+
+    Optimize path planning for more precise robotic movement.
